@@ -81,6 +81,24 @@ $config['url_suffix'] = '';
 $config['language']	= 'english';
 
 /*
+Enabled/Disabled Migrations
+By default, migrations are disabled.
+*/
+$config['migration_enabled'] = TRUE;
+
+/*
+Migration Type
+*/
+$config['migration_type'] = 'timestamp';
+
+$config['migration_version'] = '20220113085136';
+//$config['migration_table'] = 'users';
+
+/*
+Migration Path
+*/
+$config['migration_path'] = APPPATH.'migrations/';
+/*
 |--------------------------------------------------------------------------
 | Default Character Set
 |--------------------------------------------------------------------------

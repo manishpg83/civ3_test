@@ -3,10 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Product_model extends CI_Model {
 
-	
-
-	
-
 	//Amount of all active attached products 
 	public function getActiveProducts()
 	{
@@ -55,8 +51,7 @@ class Product_model extends CI_Model {
 		$this->db->group_by('user_products.user_id');
 		$query = $this->db->get('user_products');
 		return $query->result_array();
-	}
-    
+	}    
 }
 
 

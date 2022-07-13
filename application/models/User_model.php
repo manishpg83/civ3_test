@@ -2,7 +2,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User_model extends CI_Model {
-
 	//Count of all active and verified users.
 	public function getActiveVefifiedUsers()
 	{
@@ -11,7 +10,6 @@ class User_model extends CI_Model {
 		$query = $this->db->get('users');
 		return $query->num_rows();
 	}
-
 	//Count of active and verified users who have attached active products.
 	public function getActiveUsersProducts(){
 		

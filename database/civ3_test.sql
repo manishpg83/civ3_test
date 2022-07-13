@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 13, 2022 at 09:03 AM
+-- Generation Time: Jul 13, 2022 at 12:26 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.0.13
 
@@ -32,7 +32,8 @@ CREATE TABLE `products` (
   `sku` varchar(100) NOT NULL,
   `title` varchar(100) NOT NULL,
   `description` text NOT NULL,
-  `status` enum('Active','Inactive') NOT NULL,
+  `image` varchar(100) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1=Active, 0=Inactive',
   `timestamp` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -40,11 +41,11 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `sku`, `title`, `description`, `status`, `timestamp`) VALUES
-(1, 'prod1', 'prod1', 'prod1', 'Active', '2022-07-13 12:30:17'),
-(2, 'prod2', 'prod2', 'prod2', 'Active', '2022-07-13 12:30:17'),
-(3, 'prod3', 'prod3', 'prod3', 'Active', '2022-07-13 12:30:44'),
-(4, 'prod4', 'prod4', 'prod4', 'Inactive', '2022-07-13 12:30:44');
+INSERT INTO `products` (`id`, `sku`, `title`, `description`, `image`, `status`, `timestamp`) VALUES
+(1, 'prod1', 'prod1', 'prod1', '1.jpg', 1, '2022-07-13 12:30:17'),
+(2, 'prod2', 'prod2', 'prod2', '2.jpg', 1, '2022-07-13 12:30:17'),
+(3, 'prod3', 'prod3', 'prod3', '3.jpg', 1, '2022-07-13 12:30:44'),
+(4, 'prod4', 'prod4', 'prod4', '4.jpg', 2, '2022-07-13 12:30:44');
 
 -- --------------------------------------------------------
 
@@ -56,7 +57,8 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `status` enum('Active','Inactive') NOT NULL DEFAULT 'Active',
+  `is_verified` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1=Vefifed, 0=Not Verified',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1=Active, 0=Inactive',
   `timestamp` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -64,11 +66,13 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `status`, `timestamp`) VALUES
-(1, 'Manish', 'manish.bhuvait@gmail.com', 'Active', '2022-07-13 12:23:43'),
-(2, 'Rohan', 'rohan@test.com', 'Active', '2022-07-13 12:23:43'),
-(3, 'Hema', 'hema@test.com', 'Active', '2022-07-13 12:23:43'),
-(4, 'Vidhi', 'Vidhi@test.com', 'Active', '2022-07-13 12:23:43');
+INSERT INTO `users` (`id`, `name`, `email`, `is_verified`, `status`, `timestamp`) VALUES
+(1, 'Manish', 'manish.bhuvait@gmail.com', 1, 1, '2022-07-13 12:23:43'),
+(2, 'Rohan', 'rohan@test.com', 1, 1, '2022-07-13 12:23:43'),
+(3, 'Hema', 'hema@test.com', 1, 1, '2022-07-13 12:23:43'),
+(4, 'Vidhi', 'Vidhi@test.com', 0, 1, '2022-07-13 12:23:43'),
+(5, 'Shailesh', 'Shailesh@test.com', 0, 0, '2022-07-13 12:23:43'),
+(6, 'Binal', 'Binal@test.com', 1, 0, '2022-07-13 12:23:43');
 
 -- --------------------------------------------------------
 
@@ -82,7 +86,7 @@ CREATE TABLE `user_products` (
   `product_id` int(11) NOT NULL,
   `price` float(10,2) NOT NULL,
   `qty` int(10) NOT NULL,
-  `status` enum('Active','Inactive') NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1=Active, 0=Inactive',
   `timestamp` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -91,10 +95,10 @@ CREATE TABLE `user_products` (
 --
 
 INSERT INTO `user_products` (`id`, `user_id`, `product_id`, `price`, `qty`, `status`, `timestamp`) VALUES
-(1, 1, 1, 100.00, 5, 'Active', '2022-07-13 12:31:46'),
-(2, 1, 2, 200.00, 4, 'Active', '2022-07-13 12:31:46'),
-(3, 2, 3, 300.00, 3, 'Active', '2022-07-13 12:32:24'),
-(4, 3, 3, 310.00, 3, 'Inactive', '2022-07-13 12:32:24');
+(1, 1, 1, 100.00, 5, 1, '2022-07-13 12:31:46'),
+(2, 1, 2, 200.00, 4, 1, '2022-07-13 12:31:46'),
+(3, 2, 3, 300.00, 3, 1, '2022-07-13 12:32:24'),
+(4, 3, 3, 310.00, 3, 2, '2022-07-13 12:32:24');
 
 --
 -- Indexes for dumped tables
@@ -134,7 +138,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `user_products`
